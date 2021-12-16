@@ -7,6 +7,31 @@ namespace BirdLib
 {
     public static class StringExtensions
     {
+
+        /// <summary>
+        /// Returns the char frequency dictionary for the given word
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static Dictionary<char, int> GetCharFrequencyDictionary(this string input)
+        {
+            var result = new Dictionary<char, int>();
+
+            foreach (char letter in input)
+            {
+                if (!result.ContainsKey(letter))
+                {
+                    result.Add(letter, 1);
+                } else
+                {
+                    result[letter]++;
+                }
+            }
+
+            return result;
+
+        }
+
         /// <summary>
         /// Repeats the given string N times
         /// </summary>
