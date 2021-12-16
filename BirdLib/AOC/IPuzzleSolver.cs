@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AOC
 {
-    interface IPuzzleSolver
+    public interface IPuzzleSolver
     {
         string SolvePuzzlePart1();
         string SolvePuzzlePart2();

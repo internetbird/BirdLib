@@ -1,11 +1,121 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BirdLib
 {
     public static class StringExtensions
     {
+        /// <summary>
+        /// Repeats the given string N times
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static string Repeat(this string s, int n)
+           => new StringBuilder(s.Length * n).Insert(0, s, n).ToString();
+
+
+        /// <summary>
+        /// Swaps the characters at the given indexes
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="index1"></param>
+        /// <param name="index2"></param>
+        /// <returns></returns>
+        public static string SwapIndexes(this string input, int index1, int index2)
+        {
+            char[] charArray = input.ToCharArray();
+
+            char index1Char = charArray[index1];
+            char index2Char = charArray[index2];
+
+            charArray[index1] = index2Char;
+            charArray[index2] = index1Char;
+
+            return new string(charArray);
+        }
+
+
+        /// <summary>
+        /// Shifts the string right
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="numOfPositions"></param>
+        /// <returns></returns>
+        public static string ShiftRight(this string input, int numOfPositions)
+        {
+
+            int shiftAmount = numOfPositions % input.Length;
+
+            string firstPart = input.Substring(input.Length - shiftAmount);
+            string secondPart = input.Substring(0, input.Length - shiftAmount);
+            return firstPart + secondPart;
+        }
+
+        /// <summary>
+        /// Shifts the string left
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="numOfPositions"></param>
+        /// <returns></returns>
+        public static string ShiftLeft(this string input, int numOfPositions)
+        {
+            int shiftAmount = numOfPositions % input.Length;
+
+            string firstPart = input.Substring(shiftAmount, input.Length - shiftAmount);
+            string secondPart = input.Substring(0, shiftAmount);
+            return firstPart + secondPart;
+        }
+
+        /// <summary>
+        /// Reverses part of the string
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <returns></returns>
+        public static string ReversePart(this string input, int startIndex, int endIndex)
+        {
+            string reversedPart = input.Substring(startIndex, endIndex - startIndex + 1);
+
+            reversedPart = new string(reversedPart.ToCharArray().Reverse().ToArray());
+
+            string prefix = input.Substring(0, startIndex);
+            string suffix = string.Empty;
+
+            if (endIndex < input.Length - 1)
+            {
+                suffix = input.Substring(endIndex + 1);
+            }
+
+            return $"{prefix}{reversedPart}{suffix}";
+        }
+
+        /// <summary>
+        /// Changes the index of a character in a string
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="fromIndex"></param>
+        /// <param name="toIndex"></param>
+        /// <returns></returns>
+        public static string ChangeIndex(this string input, int fromIndex, int toIndex)
+        {
+            char[] charArray = input.ToCharArray();
+            char charToMove = charArray[fromIndex];
+
+            string result = input.Remove(fromIndex, 1);
+            result = result.Insert(toIndex, charToMove.ToString());
+
+            return result;
+        }
+
+        /// <summary>
+        /// Returns true if the string contains strait three letters
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static bool HasStraightThreeLetters(this string input)
         {
             for (int i = 0; i < input.Length - 2; i++)
@@ -18,6 +128,11 @@ namespace BirdLib
             return false;
         }
 
+        /// <summary>
+        /// Checks for two difference letter pairs
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static bool ContainsTwoDifferentLetterPairs(this string input)
         {
             bool firstPairFound = false;
