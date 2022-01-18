@@ -10,7 +10,7 @@ namespace BirdLib.Tests
         [TestMethod]
         public void TestGetAllCouples_Length()
         {
-            var permutationGenerator = new PermutaionGenerator();
+            var permutationGenerator = new PermutationGenerator();
             var items = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
 
             var allCouples = permutationGenerator.GetAllCouples(items);
@@ -21,7 +21,7 @@ namespace BirdLib.Tests
         [TestMethod]
         public void TestGetAllCouples1()
         {
-            var permutationGenerator = new PermutaionGenerator();
+            var permutationGenerator = new PermutationGenerator();
             var items = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
 
             var allCouples = permutationGenerator.GetAllCouples(items);

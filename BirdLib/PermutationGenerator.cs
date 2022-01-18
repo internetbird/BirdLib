@@ -8,7 +8,7 @@ namespace BirdLib
     /// <summary>
     /// A helper class for creating permutaions
     /// </summary>
-    public class PermutaionGenerator
+    public class PermutationGenerator
     {
         public List<string[]> GetAllPermutations(string[] input)
         {
