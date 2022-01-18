@@ -10,26 +10,26 @@ namespace BirdLib
     /// </summary>
     public class PermutationGenerator
     {
-        public List<string[]> GetAllPermutations(string[] input)
+        public List<T[]> GetAllPermutations<T>(T[] input)
         {
-            var permutations = new List<string[]>();
+            var permutations = new List<T[]>();
 
             if (input.Length == 1)
             {
-                return new List<string[]> { input };
+                return new List<T[]> { input };
             }
 
             for (int i = 0; i < input.Length; i++)
             {
                 var currItem = input[i];
-                var listWithoutCurrItem = new List<string>(input);
+                var listWithoutCurrItem = new List<T>(input);
                 listWithoutCurrItem.Remove(currItem);
 
-                List<string[]> subArrayPermutations = GetAllPermutations(listWithoutCurrItem.ToArray());
+                List<T[]> subArrayPermutations = GetAllPermutations(listWithoutCurrItem.ToArray());
 
-                foreach (string[] item in subArrayPermutations)
+                foreach (T[] item in subArrayPermutations)
                 {
-                    string[] fullPermutationArray = item.PrependItem(input[i]);
+                    T[] fullPermutationArray = item.PrependItem(input[i]);
                     permutations.Add(fullPermutationArray);
                 }
             }
