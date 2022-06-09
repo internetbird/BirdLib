@@ -184,5 +184,22 @@ namespace BirdLib
 
             return false;
         }
+
+        /// <summary>
+        /// Removes the first and last chars of a string
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string RemoveFirstAndLastChars(this string input)
+        {
+            if (input.Length < 2)
+            {
+                return input;
+            }
+
+            return input.Substring(1, input.Length - 2);
+        }
     }
+
+  
 }
