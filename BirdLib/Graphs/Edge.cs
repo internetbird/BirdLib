@@ -9,6 +9,12 @@ namespace BirdLib.Graphs
     public class Edge
     {
         public int sourceNode { get; set; }
-        public int targetNode { get; set; }
+        public int destinationNode { get; set; }
+
+        public Edge(int sourceNode, int destinationNode)
+        {
+            this.sourceNode = sourceNode;
+            this.destinationNode = destinationNode;
+        }
     }
 }

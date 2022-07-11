@@ -51,7 +51,7 @@ namespace BirdLib
         {
             return graph.Edges
                 .Where(edge => edge.sourceNode == node)
-                .Select(edge => edge.targetNode).ToList();
+                .Select(edge => edge.destinationNode).ToList();
             
         }
     }
