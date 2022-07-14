@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BirdLib
@@ -28,7 +29,7 @@ namespace BirdLib
             return numOfDifferenceChars;
         }
 
-        public string GetCommonLetters(string str1 , string str2)
+        public string GetCommonLetters(string str1, string str2)
         {
             if (str1.Length != str2.Length)
             {
@@ -46,5 +47,18 @@ namespace BirdLib
 
             return commonLettersStr;
         }
+
+
+        public static string ConvertHexStringToBinaryString(string hexString)
+        {
+            string binarystring = string.Join(string.Empty,
+                      hexString.Select(
+                        c => Convert.ToString(Convert.ToInt32(c.ToString(), 16), 2).PadLeft(4, '0')
+                      )
+                );
+
+            return binarystring;
+        }
+
     }
 }
