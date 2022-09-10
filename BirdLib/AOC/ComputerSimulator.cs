@@ -17,6 +17,7 @@ namespace BirdLib.AOC
         public ComputerSimulator(IComputerInstructionParser<T,U> parser)
         {
             _parser = parser;
+            _registers = new Dictionary<string, int>();
         }
 
         public string ExcuteProgram()
@@ -28,13 +29,46 @@ namespace BirdLib.AOC
             while (instructionToExecute != null)
             {
                 ExecuteInsturction(instructionToExecute);
+                instructionToExecute = GetNextInstructionToExecute();
             }
 
             return string.Empty;
         }
 
         protected abstract void ExecuteInsturction(T instructionToExecute);
-       
+
+        protected int GetOperandValue(string operandStr)
+        {
+            if (_registers.ContainsKey(operandStr)) //Check if the operand is a register
+            {
+                return _registers[operandStr];
+            }
+            return int.Parse(operandStr);
+        }
+
+        protected void SetRegisterValue(string register, int value)
+        {
+            if (!_registers.ContainsKey(register))
+            {
+                _registers.Add(register, value);
+
+            } else
+            {
+                _registers[register] = value;
+            }
+        }
+
+        protected int GetRegisterValue(string register)
+        {
+            if (_registers.ContainsKey(register))
+            {
+                return _registers[register];
+            }
+
+            return 0;
+        }
+
+
         private T GetNextInstructionToExecute()
         {
             if (_programCounter < _program.Count)
@@ -47,6 +81,8 @@ namespace BirdLib.AOC
 
         public void LoadProgram(string[] programLines)
         {
+            _program = new List<T>();
+
             foreach (string line in programLines)
             {
                 T instruction = _parser.ParseInstruction(line);
