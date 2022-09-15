@@ -13,6 +13,9 @@ namespace BirdLib.AOC
         protected List<T> _program;
         private IComputerInstructionParser<T,U> _parser;
         protected int _programCounter;
+        protected string[] _programLines;
+        protected bool _isDebugMode;
+       
 
         public ComputerSimulator(IComputerInstructionParser<T,U> parser)
         {
@@ -20,19 +23,49 @@ namespace BirdLib.AOC
             _registers = new Dictionary<string, int>();
         }
 
-        public string ExcuteProgram()
+        public string ExcuteProgram(bool debugMode  = false)
         {
+            _isDebugMode = debugMode;
             _programCounter = 0;
 
             T instructionToExecute = GetNextInstructionToExecute();
 
             while (instructionToExecute != null)
             {
+                if (debugMode)
+                {
+                    DebugNextInstructionToExecute();
+                }
+
                 ExecuteInsturction(instructionToExecute);
                 instructionToExecute = GetNextInstructionToExecute();
             }
 
             return string.Empty;
+        }
+
+        private void DebugNextInstructionToExecute()
+        {
+            Console.WriteLine($"Executing command : {_programLines[_programCounter]} - At line {_programCounter + 1}");
+
+            LogRegisters();
+
+            Console.ReadKey();
+        }
+
+        private void LogRegisters()
+        {
+            if (_registers.Count > 0)
+            {
+                Console.WriteLine("**** Registers *******");
+
+                foreach(var kvp in _registers)
+                {
+                    Console.WriteLine($"{kvp.Key} = {kvp.Value}");
+                }
+
+                Console.WriteLine("**********************");
+            }
         }
 
         protected abstract void ExecuteInsturction(T instructionToExecute);
@@ -81,6 +114,8 @@ namespace BirdLib.AOC
 
         public void LoadProgram(string[] programLines)
         {
+            _programLines = programLines; //Save for debuggin purposes
+
             _program = new List<T>();
 
             foreach (string line in programLines)
