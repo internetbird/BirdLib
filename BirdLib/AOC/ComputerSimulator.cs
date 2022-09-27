@@ -102,7 +102,7 @@ namespace BirdLib.AOC
         }
 
 
-        private T GetNextInstructionToExecute()
+        protected virtual T GetNextInstructionToExecute()
         {
             if (_programCounter < _program.Count)
             {
