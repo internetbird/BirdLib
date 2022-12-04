@@ -53,5 +53,27 @@ namespace BirdLib.ExtensionMethods
             return newDirection;
         }
 
+        public static Direction Reverse(this Direction direction)
+        {
+            Direction newDirection = Direction.Up;
+            switch (direction)
+            {
+                case Direction.Right:
+                    newDirection = Direction.Left;
+                    break;
+                case Direction.Up:
+                    newDirection = Direction.Down;
+                    break;
+                case Direction.Left:
+                    newDirection = Direction.Right;
+                    break;
+                case Direction.Down:
+                    newDirection = Direction.Up;
+                    break;
+            }
+
+            return newDirection;
+        }
+
     }
 }
