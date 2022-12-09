@@ -76,6 +76,12 @@ namespace BirdLib.AOC
             {
                 return _registers[operandStr];
             }
+
+            if (char.IsLetter(operandStr, 0)) //Check for non initialized registers
+            {
+                return 0;
+            }
+
             return long.Parse(operandStr);
         }
 
