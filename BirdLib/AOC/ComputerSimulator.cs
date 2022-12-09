@@ -9,12 +9,16 @@ namespace BirdLib.AOC
 {
     public abstract class ComputerSimulator<T,U> where T : IComputerInstruction<U>
     {
+
+
         protected Dictionary<string, long> _registers;
         protected List<T> _program;
         private IComputerInstructionParser<T,U> _parser;
         protected int _programCounter;
         protected string[] _programLines;
         protected bool _isDebugMode;
+        protected delegate void OnInstuctionDebug(object sender, InstructionDebugEventArgs<U> e);
+        protected event OnInstuctionDebug _onInstuctionDebug;
        
 
         public ComputerSimulator(IComputerInstructionParser<T,U> parser)
@@ -35,6 +39,10 @@ namespace BirdLib.AOC
                 if (debugMode)
                 {
                     DebugNextInstructionToExecute();
+                    if (_onInstuctionDebug != null)
+                    {
+                        _onInstuctionDebug(this, new InstructionDebugEventArgs<U> { CurrentInstrunction = instructionToExecute });
+                    }
                 }
 
                 ExecuteInsturction(instructionToExecute);
@@ -130,5 +138,7 @@ namespace BirdLib.AOC
                 _program.Add(instruction);
             }
         }
+
+       
     }
 }
