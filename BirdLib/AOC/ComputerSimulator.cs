@@ -17,8 +17,8 @@ namespace BirdLib.AOC
         protected int _programCounter;
         protected string[] _programLines;
         protected bool _isDebugMode;
-        protected delegate void OnInstuctionDebug(object sender, InstructionDebugEventArgs<U> e);
-        protected event OnInstuctionDebug _onInstuctionDebug;
+        public delegate void OnAfterInstructionExecutedDelegate(object sender, InstructionExecutedEventArgs<U> e);
+        public event OnAfterInstructionExecutedDelegate OnAfterInstructionExecuted;
        
 
         public ComputerSimulator(IComputerInstructionParser<T,U> parser)
@@ -39,13 +39,14 @@ namespace BirdLib.AOC
                 if (debugMode)
                 {
                     DebugNextInstructionToExecute();
-                    if (_onInstuctionDebug != null)
-                    {
-                        _onInstuctionDebug(this, new InstructionDebugEventArgs<U> { CurrentInstrunction = instructionToExecute });
-                    }
                 }
 
                 ExecuteInsturction(instructionToExecute);
+
+                if (OnAfterInstructionExecuted != null)
+                {
+                    OnAfterInstructionExecuted(this, new InstructionExecutedEventArgs<U> { CurrentInstrunction = instructionToExecute });
+                }
                 instructionToExecute = GetNextInstructionToExecute();
             }
 
