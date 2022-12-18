@@ -53,6 +53,35 @@ namespace BirdLib.AOC
             return string.Empty;
         }
 
+        public int GetCurrentLineNumber() => _programCounter + 1;
+
+        public void LogRegisters()
+        {
+            if (_registers.Count > 0)
+            {
+                Console.WriteLine("**** Registers *******");
+
+                foreach (var kvp in _registers)
+                {
+                    Console.WriteLine($"{kvp.Key} = {kvp.Value}");
+                }
+
+                Console.WriteLine("**********************");
+            }
+        }
+
+        public void LogRegister(string register)
+        {
+            if (_registers.ContainsKey(register))
+            {
+                Console.WriteLine($"{register} = {_registers[register]}");
+            } else
+            {
+                Console.WriteLine($"Register '{register}' does not exist.");
+            }
+         
+        }
+
         private void DebugNextInstructionToExecute()
         {
             Console.WriteLine($"Executing command : {_programLines[_programCounter]} - At line {_programCounter + 1}");
@@ -62,20 +91,7 @@ namespace BirdLib.AOC
             Console.ReadKey();
         }
 
-        private void LogRegisters()
-        {
-            if (_registers.Count > 0)
-            {
-                Console.WriteLine("**** Registers *******");
-
-                foreach(var kvp in _registers)
-                {
-                    Console.WriteLine($"{kvp.Key} = {kvp.Value}");
-                }
-
-                Console.WriteLine("**********************");
-            }
-        }
+      
 
         protected abstract void ExecuteInsturction(T instructionToExecute);
 

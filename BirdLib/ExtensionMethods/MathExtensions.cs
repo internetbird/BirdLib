@@ -16,5 +16,23 @@ namespace BirdLib
         {
             return list.Aggregate((ulong)1, (accomulator, current) => accomulator * current);
         }
+
+        public static bool IsPrime(this int value)
+        {
+            if (value <= 1)
+            {
+                return false;
+            }
+
+            for (int i = 2; i <= Math.Sqrt(value); i++)
+            {
+                if (value % i == 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }
