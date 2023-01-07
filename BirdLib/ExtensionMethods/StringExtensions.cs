@@ -199,6 +199,15 @@ namespace BirdLib
 
             return input.Substring(1, input.Length - 2);
         }
+
+
+        public static string RemovePart(this string input, int startIndex, int length)
+        {
+            string firstSection = input.Substring(0, startIndex);
+            string secondSection = input.Substring(startIndex + length);
+            return string.Concat(firstSection, secondSection);
+             
+        }
     }
 
   
