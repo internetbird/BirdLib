@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BirdLib.DataModels;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -17,17 +18,17 @@ namespace BirdLib
             {
                 neighbourPoints.Add(new Point(x - 1, y));
 
-            } 
+            }
 
             if (x < (gridSize - 1))
             {
                 neighbourPoints.Add(new Point(x + 1, y));
-            } 
+            }
 
             if (y > 0)
             {
                 neighbourPoints.Add(new Point(x, y - 1));
-            } 
+            }
 
             if (y < (gridSize - 1))
             {
@@ -36,5 +37,11 @@ namespace BirdLib
 
             return neighbourPoints;
         }
+
+        public static int GetManhattenDistance(GridPoint point1, GridPoint point2)
+        {
+            return Math.Abs(point1.RowIndex - point2.RowIndex) + Math.Abs(point1.ColumnIndex- point2.ColumnIndex);  
+        }
     }
+            
 }
