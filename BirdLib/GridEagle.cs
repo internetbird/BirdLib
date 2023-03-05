@@ -38,6 +38,23 @@ namespace BirdLib
             return neighbourPoints;
         }
 
+        public static int GetItemsCountWithValue<T>(Grid<T> grid, T value)
+        {
+            int count = 0;
+            for (int i = 0; i < grid.RowSize; i++)
+            {
+                for (int j = 0; j < grid.ColumnSize; j++)
+                {
+                    if (grid.GetItem(i, j).Equals(value))
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
+        }
+
         public static int GetManhattenDistance(GridPoint point1, GridPoint point2)
         {
             return Math.Abs(point1.RowIndex - point2.RowIndex) + Math.Abs(point1.ColumnIndex- point2.ColumnIndex);  
