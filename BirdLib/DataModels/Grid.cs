@@ -193,6 +193,38 @@ namespace BirdLib.DataModels
             return result;
         }
 
+        public int SumValues()
+        {
+            int sum = 0;
+
+            for (int i = 0; i < RowSize; i++)
+            {
+                for (int j = 0; j < ColumnSize; j++)
+                {
+                    sum += GetItemAsInt(i, j);
+                }
+            }
+
+            return sum;
+        }
+
+        private int GetItemAsInt(int i, int j)
+        {
+            T item = GetItem(i, j);
+
+            if (item is int)
+            {
+                return Convert.ToInt32(item);
+
+            } else if (item is bool)
+            {
+                return Convert.ToBoolean(item) ? 1 : 0;
+            } else
+            {
+                return 0;
+            }
+        }
+
         private string GetItemAsString(int i, int j)
         {
             T item = GetItem(i, j);
