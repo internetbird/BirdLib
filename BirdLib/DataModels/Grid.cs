@@ -13,6 +13,12 @@ namespace BirdLib.DataModels
         public int RowSize => _items.GetLength(0);
         public int ColumnSize => _items.GetLength(1);
 
+
+        public Grid(int size)
+        {
+            _items = new T[size, size];
+        }
+
         public Grid(int rowSize, int columnSize)
         {
             _items = new T[rowSize, columnSize];
