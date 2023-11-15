@@ -141,15 +141,43 @@ namespace BirdLib
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static bool HasStraightThreeLetters(this string input)
+        public static bool HasStraightThreeLetters(this string input) => HasStraightNLetters(input, 3);
+
+        /// <summary>
+        /// Returns true if the string contains strait [repeatCount] letters
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="repeatCount"></param>
+        /// <returns></returns>
+        public static bool HasStraightNLetters(this string input, int repeatCount)
         {
-            for (int i = 0; i < input.Length - 2; i++)
+            if(string.IsNullOrEmpty(input) || input.Length < repeatCount)
             {
-                if ((input[i + 1] == input[i] + 1) && (input[i + 2] == input[i + 1] + 1))
+                return false;
+            }
+
+            for (int i = 0; i < input.Length - repeatCount + 1; i++)
+            {
+                char charToCompare = input[i];
+                bool repeatFound = true;
+                for (int j = 1; j < repeatCount; j++)
+                {
+                    if (charToCompare != input[i + j])
+                    {
+                        repeatFound = false;
+                        break;
+                    }
+                }
+
+                if (!repeatFound)
+                {
+                    continue;
+                } else
                 {
                     return true;
                 }
             }
+
             return false;
         }
 
